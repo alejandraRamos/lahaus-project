@@ -24,27 +24,30 @@ data "aws_subnet" "devops-subnet-public-2c" {
 data "aws_subnet" "devops-subnet-private-2c"{
   id = var.private_subnet_id_2c
 }
+/*
 resource "aws_eip" "nat_gateway" {
   vpc = true
 }
 resource "aws_nat_gateway" "nat-2a" {
   allocation_id = aws_eip.nat_gateway.id
-  subnet_id     = var.private_subnet_id_2a
+  subnet_id     = var.public_subnet_id_2a
 
   tags = {
     Name = "gw NAT"
   }
-  depends_on = [var.public_subnet_id_2a]
+  depends_on = [var.private_subnet_id_2a]
 }
 resource "aws_nat_gateway" "nat-2c" {
   allocation_id = aws_eip.nat_gateway.id
-  subnet_id     = var.private_subnet_id_2c
+  subnet_id     = var.public_subnet_id_2c
 
   tags = {
     Name = "gw NAT"
   }
-  depends_on = [var.public_subnet_id_2c]
+  depends_on = [var.private_subnet_id_2c]
 }
+*/
+
 /*Front
 resource "aws_launch_template" "launch-template-front" {
   image_id               = var.devops_ami_id
@@ -69,13 +72,15 @@ resource "aws_launch_template" "launch-template-back" {
   name                   = var.lt_name_back
   instance_type          = var.lt_instance_type
   key_name               = var.key_name
+  vpc_security_group_ids = [aws_security_group.sg-instance.id]
 }
 resource "aws_autoscaling_group" "tf-devops-asg-back" {
 	max_size 						= var.asg_max_size
 	min_size 						= var.asg_min_size
 	desired_capacity 		= var.asg_desired_capacity
 	vpc_zone_identifier = [ data.aws_subnet.devops-subnet-private-2a.id, data.aws_subnet.devops-subnet-private-2c.id ]
-  
+    target_group_arns = [ aws_lb_target_group.devops-target-group.arn ]
+    
 	launch_template {
 		id			= aws_launch_template.launch-template-back.id
 		version = var.lt_version
@@ -83,14 +88,23 @@ resource "aws_autoscaling_group" "tf-devops-asg-back" {
 }
 
 //IGW
-resource "aws_internet_gateway" "devops-igw" {
-  vpc_id = var.devops_vpc
+data "aws_internet_gateway" "devops-igw" {
+  internet_gateway_id = "igw-047246abee53f83f1"
  }
 
 //SG
 resource "aws_security_group" "sg-instance" {
   description = var.sg_instance
   vpc_id      = var.devops_vpc
+
+  ingress {
+      description = var.sg_in_ssh_descrption
+      from_port = var.sg_in_ssh_port
+      to_port = var.sg_in_ssh_port
+      protocol = var.sg_in_ssh_protocol
+      cidr_blocks = ["0.0.0.0/0"]
+
+  }
 
   ingress {
       description = var.sg_in_app_descrption
