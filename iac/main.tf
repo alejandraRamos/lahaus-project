@@ -73,6 +73,9 @@ resource "aws_launch_template" "launch-template-back" {
   instance_type          = var.lt_instance_type
   key_name               = var.key_name
   vpc_security_group_ids = [aws_security_group.sg-instance.id]
+
+  user_data = base64encode(templatefile("./user_data.sh", { ansible = var.lt_instance_name}))
+
 }
 resource "aws_autoscaling_group" "tf-devops-asg-back" {
 	max_size 						= var.asg_max_size

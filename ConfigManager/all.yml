@@ -1,0 +1,40 @@
+- hosts: all
+  become: yes
+  become_user: root
+  become_method: sudo
+
+  tasks:
+    - name: Update all packages
+      yum:
+        name: '*'
+        state: latest
+        update_only: yes
+
+    - name: Ensure a list of yum packages are installed
+      yum:manuel11coral23/lahausi
+        name: "{{ packages }}"
+        state: latest
+        update_cache: yes
+      vars:
+        packages:
+        - python-pip
+        - yum-utils
+        - device-mapper-persistent-data
+        - lvm2
+        - amazon-linux-extras
+
+    - name: Add extras repository
+      shell: yum-config-manager --enable extras
+
+    - name: Install docker-ce (centos) via amazon-linux-extras packages
+      shell: "amazon-linux-extras install docker -y"
+
+    - name: Enable Docker CE service at startup
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Install Docker Module for Python
+      pip:
+        name: docker

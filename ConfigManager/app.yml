@@ -1,0 +1,47 @@
+- hosts: tf-devops-asg-back
+  serial: 1
+  become: yes
+  become_user: root
+  become_method: sudo
+
+  tasks:
+    - name: get info on back container
+      docker_container_info:
+        name: lahaus
+      register: result
+
+    - name: Does container exists?
+      ansible.builtin.debug:
+        msg: "The container {{ 'exists' if result.exists else 'does not exist' }}"
+
+    - name: Stop container
+      docker_container:
+        name: lahaus
+        state: stopped
+      when: result.exists
+    
+    - name: remove container
+      docker_container:
+        name: lahaus
+        state: absent
+    //name
+    - name: remove image
+      docker_image:
+        state: absent
+        name: alejandraramos
+
+    - name: Execute docker container
+      docker_container:
+        name: lahaus
+        image: alejandraramos
+        pull: true
+        log_driver: awslogs
+        log_options:
+          awslogs-group: '{{ awslog_group }}'
+        state: started
+        published_ports:
+          - "5000:5000"
+        env:
+          APP_SETTINGS: 'config.DevelopmentConfig'
+          DATABASE_URL: 'postgresql:///lahaus'
+      register: my_service_status
