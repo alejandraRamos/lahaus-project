@@ -1,5 +1,5 @@
-flask
-flask_sqlalchemy
+flask==1.1.2
+flask_sqlalchemy==2.4.1
 flask_script
-flask_migrate
+flask_migrate==2.5.2
 psycopg2-binary

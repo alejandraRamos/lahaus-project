@@ -8,9 +8,7 @@ RUN pip3 install -r requirements.txt
 
 COPY . .
 
-# Postgresql
-RUN ./scripts/psql.sh
 
 EXPOSE 5000
 
-CMD ["/bin/bash", "./scripts/migrate_execute.sh"]
+CMD ["/bin/bash", "./scripts/execute.sh"]
