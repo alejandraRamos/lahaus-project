@@ -1,4 +1,4 @@
-- hosts: lt_instance_name
+- hosts: tf-instance-devops
   serial: 1
   become: yes
   become_user: root
