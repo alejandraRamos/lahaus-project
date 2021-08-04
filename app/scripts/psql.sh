@@ -9,3 +9,9 @@ service postgresql restart
 
 su postgres psql -c 'createuser root;'
 su postgres psql -c 'createdb lahaus;'
+
+service postgresql restart
+
+python3 manage.py db init
+python3 manage.py db migrate
+python3 manage.py db upgrade

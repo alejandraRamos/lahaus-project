@@ -32,7 +32,7 @@ resource "aws_launch_template" "launch-template-db" {
   key_name               = var.key_name
   vpc_security_group_ids = [aws_security_group.sg-instance.id]
 
-  //user_data = base64encode(templatefile(["./psql.sh" , "./scripts/migrate.sh"]))
+  user_data = base64encode(templatefile("../app/scripts/psql.sh", {}))
 }
 resource "aws_autoscaling_group" "tf-devops-asg-db" {
 	max_size 						= 1
@@ -161,10 +161,3 @@ resource "aws_lb_target_group" "devops-target-group" {
 		unhealthy_threshold = var.tg_hc_unhealthy_threshold
 	}
 }
-
- 
-
-
-
-
-
