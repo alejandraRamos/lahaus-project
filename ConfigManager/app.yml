@@ -1,4 +1,4 @@
-- hosts: tf-devops-asg-back
+- hosts: lt_instance_name
   serial: 1
   become: yes
   become_user: root
@@ -24,6 +24,7 @@
       docker_container:
         name: lahaus
         state: absent
+      when: result.exists
     //name
     - name: remove image
       docker_image:
