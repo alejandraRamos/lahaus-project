@@ -11,4 +11,3 @@ Esta infraestructura cuenta con el entorno de desarrollo conocido como VPC y est
 ## Oportunidades de mejora
 
 - Crear una RDS en lugar de una instancia ec2.
-- 

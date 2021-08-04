@@ -38,7 +38,7 @@ resource "aws_autoscaling_group" "tf-devops-asg-db" {
 	max_size 						= 1
 	min_size 						= 1
 	desired_capacity 		= 1
-	vpc_zone_identifier = [ data.aws_subnet.devops-subnet-public-2a.id, data.aws_subnet.devops-subnet-public-2c.id ]
+	vpc_zone_identifier = [ data.aws_subnet.devops-subnet-private-2a.id, data.aws_subnet.devops-subnet-private-2c.id]
   
 	launch_template {
 		id			= aws_launch_template.launch-template-db.id
