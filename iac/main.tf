@@ -24,19 +24,27 @@ data "aws_subnet" "devops-subnet-public-2c" {
 data "aws_subnet" "devops-subnet-private-2c"{
   id = var.private_subnet_id_2c
 }
+//creo que falta el sg
+resource "aws_launch_template" "launch-template-db" {
+  image_id               = var.devops_ami_id
+  name                   = var.lt_name_db
+  instance_type          = var.lt_instance_type
+  key_name               = var.key_name
+  vpc_security_group_ids = [aws_security_group.sg-instance.id]
 
-resource "aws_autoscaling_group" "tf-devops-asg-front" {
-	max_size 						= var.asg_max_size
-	min_size 						= var.asg_min_size
-	desired_capacity 		= var.asg_desired_capacity
+  //user_data = base64encode(templatefile(["./psql.sh" , "./scripts/migrate.sh"]))
+}
+resource "aws_autoscaling_group" "tf-devops-asg-db" {
+	max_size 						= 1
+	min_size 						= 1
+	desired_capacity 		= 1
 	vpc_zone_identifier = [ data.aws_subnet.devops-subnet-public-2a.id, data.aws_subnet.devops-subnet-public-2c.id ]
   
 	launch_template {
-		id			= aws_launch_template.launch-template-front.id
+		id			= aws_launch_template.launch-template-db.id
 		version = var.lt_version
 	}
 }
-*/
 resource "aws_launch_template" "launch-template-back" {
   image_id               = var.devops_ami_id
   name                   = var.lt_name_back
@@ -52,7 +60,9 @@ resource "aws_autoscaling_group" "tf-devops-asg-back" {
 	min_size 						= var.asg_min_size
 	desired_capacity 		= var.asg_desired_capacity
 	vpc_zone_identifier = [ data.aws_subnet.devops-subnet-private-2a.id, data.aws_subnet.devops-subnet-private-2c.id ]
-    target_group_arns = [ aws_lb_target_group.devops-target-group.arn ]
+    target_group_arns = [ aws_lb_target_group.devops-target-group.arn ]  
+
+  depends_on = [aws_autoscaling_group.tf-devops-asg-db]
     
 	launch_template {
 		id			= aws_launch_template.launch-template-back.id
@@ -96,28 +106,7 @@ resource "aws_security_group" "sg-instance" {
 	}
 	
 }
-/*SG to Front
-resource "aws_security_group" "sg-lb-front" {
-  description = var.lb_sg_description
-  vpc_id      = var.devops_vpc
 
-  ingress {
-    description = var.lb_sg_in_traffic_description
-    from_port   = var.lb_sg_in_traffic_port
-        to_port     = var.lb_sg_in_traffic_port
-        protocol    = var.lb_sg_in_traffic_protocol
-        cidr_blocks = var.lb_sg_in_traffic_cird
-  }
-
-   egress {
-    description = var.lb_sg_out_description
-    from_port   = var.lb_sg_out_port
-        to_port     = var.lb_sg_out_port
-        protocol    = var.lb_sg_out_protocol
-        cidr_blocks = var.lb_sg_out_cird
-  }
-}
-*/
 resource "aws_security_group" "sg-lb-back" {
   description = var.lb_sg_description
   vpc_id      = var.devops_vpc
@@ -145,18 +134,7 @@ resource "aws_lb" "tf-alb" {
 	subnets 		   = [ data.aws_subnet.devops-subnet-private-2a.id, data.aws_subnet.devops-subnet-private-2c.id ]
 	security_groups    = [ aws_security_group.sg-lb-back.id ]
 }
-/*
-resource "aws_lb_listener" "http" {
-	load_balancer_arn = aws_lb.tf-alb.arn
-	protocol 		  = var.lbl_protocol
-	port 			  = var.lbl_port
 
-	default_action {
-		type 						 = var.lbl_action_type
-		target_group_arn = aws_lb_target_group.devops-target-group.arn
-	}
-}
-*/
 resource "aws_lb_listener" "http" {
 	load_balancer_arn = aws_lb.tf-alb.arn
 	protocol 		  = var.lbl_protocol
