@@ -193,9 +193,9 @@ variable "lt_version" {
   default     = "$Latest"
   description = "This is the launch template version that is going to be used"
 }
-variable "lt_name_front" {
+variable "lt_name_db" {
   type        = string
-  default     = "tf-launch-template-up-front"
+  default     = "tf-launch-template-up-db"
   description = "This is the name that the launch template is going to have"
 }
 variable "lt_name_back" {
