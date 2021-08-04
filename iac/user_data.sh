@@ -8,4 +8,4 @@ git clone https://github.com/alejandraRamos/lahaus-project.git
 
 cd lahaus-project/ConfigManager/
 
-sudo ansible-playbook -i inventory/ -l ${ansible} ini.yml -vvv -e awslog_group=${log_group}
+sudo ansible-playbook -i inventory/ -l ${ansible} ini.yml -vvv
