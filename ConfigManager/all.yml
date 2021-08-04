@@ -11,7 +11,7 @@
         update_only: yes
 
     - name: Ensure a list of yum packages are installed
-      yum:manuel11coral23/lahausi
+      yum: alejandraramos/lahaus
         name: "{{ packages }}"
         state: latest
         update_cache: yes

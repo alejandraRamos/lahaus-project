@@ -28,12 +28,12 @@
     - name: remove image
       docker_image:
         state: absent
-        name: alejandraramos
+        name: alejandraramos/lahaus
 
     - name: Execute docker container
       docker_container:
         name: lahaus
-        image: alejandraramos
+        image: alejandraramos/lahaus
         pull: true
         log_driver: awslogs
         log_options:
