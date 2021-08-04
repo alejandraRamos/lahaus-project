@@ -24,37 +24,7 @@ data "aws_subnet" "devops-subnet-public-2c" {
 data "aws_subnet" "devops-subnet-private-2c"{
   id = var.private_subnet_id_2c
 }
-/*
-resource "aws_eip" "nat_gateway" {
-  vpc = true
-}
-resource "aws_nat_gateway" "nat-2a" {
-  allocation_id = aws_eip.nat_gateway.id
-  subnet_id     = var.public_subnet_id_2a
 
-  tags = {
-    Name = "gw NAT"
-  }
-  depends_on = [var.private_subnet_id_2a]
-}
-resource "aws_nat_gateway" "nat-2c" {
-  allocation_id = aws_eip.nat_gateway.id
-  subnet_id     = var.public_subnet_id_2c
-
-  tags = {
-    Name = "gw NAT"
-  }
-  depends_on = [var.private_subnet_id_2c]
-}
-*/
-
-/*Front
-resource "aws_launch_template" "launch-template-front" {
-  image_id               = var.devops_ami_id
-  name                   = var.lt_name_front
-  instance_type          = var.lt_instance_type
-  key_name               = var.key_name
-}
 resource "aws_autoscaling_group" "tf-devops-asg-front" {
 	max_size 						= var.asg_max_size
 	min_size 						= var.asg_min_size
