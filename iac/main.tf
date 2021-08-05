@@ -116,7 +116,7 @@ resource "aws_lb" "tf-alb" {
   name               = var.lb_name
   internal           = false
   load_balancer_type = var.lb_type
-  subnets            = [data.aws_subnet.devops-subnet-private-2a.id, data.aws_subnet.devops-subnet-private-2c.id]
+  subnets            = [data.aws_subnet.devops-subnet-public-2a.id, data.aws_subnet.devops-subnet-public-2c.id]
   security_groups    = [aws_security_group.sg-lb-back.id]
 }
 

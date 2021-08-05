@@ -76,7 +76,7 @@ variable "sg_in_ssh_protocol" {
 }
 
 variable "sg_in_ssh_cidr" {
-  type        = list(string)
+  type        = list (string)
   default     = ["181.58.18.38/32"]
   description = "This is the list of CIDR"
 }
@@ -100,7 +100,7 @@ variable "sg_in_app_protocol" {
 }
 
 variable "sg_in_app_cidr" {
-  type        = list(string)
+  type        = list (string)
   default     = ["0.0.0.0/0"]
   description = "This is the list of CIDR"
 }
@@ -124,7 +124,7 @@ variable "front_sg_out_protocol" {
 }
 
 variable "front_sg_out_cidr" {
-  type        = list(string)
+  type        = list (string)
   default     = ["0.0.0.0/0"]
   description = "This is list of cird for the outbound rule"
 }
@@ -154,7 +154,7 @@ variable "lb_sg_in_traffic_protocol" {
 }
 
 variable "lb_sg_in_traffic_cird" {
-  type        = list(string)
+  type        = list (string)
   default     = ["0.0.0.0/0"]
   description = "This is the list of CIDR"
 }
