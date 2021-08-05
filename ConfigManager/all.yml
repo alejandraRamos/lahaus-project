@@ -17,7 +17,7 @@
         update_cache: yes
       vars:
         packages:
-        - python-pip
+        - python3-pip
         - yum-utils
         - device-mapper-persistent-data
         - lvm2
@@ -36,5 +36,4 @@
         enabled: yes
 
     - name: Install Docker Module for Python
-      pip:
-        name: docker
+      command: "pip3 install"
