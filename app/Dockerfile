@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 5000
 
-CMD ["/bin/bash", "./scripts/execute.sh"]
+CMD ["/bin/bash", "./scripts/migrate_execute.sh"]
