@@ -10,7 +10,7 @@
         name: lahaus
       register: result
       vars:
-	      ansible_python_interpreter: /bin/python3.8
+        ansible_python_interpreter: /bin/python3.8
 
     - name: Does container exists?
       ansible.builtin.debug:
@@ -22,7 +22,7 @@
         state: stopped
       when: result.exists
       vars:
-	      ansible_python_interpreter: /bin/python3.8
+        ansible_python_interpreter: /bin/python3.8
     
     - name: remove container
       docker_container:
@@ -30,7 +30,7 @@
         state: absent
       when: result.exists
       vars:
-	      ansible_python_interpreter: /bin/python3.8
+        ansible_python_interpreter: /bin/python3.8
     
     - name: remove image
       docker_image:
@@ -52,4 +52,4 @@
           DATABASE_URL: '{{ database_url }}'
       register: my_service_status
       vars:
-	      ansible_python_interpreter: /bin/python3.8
+        ansible_python_interpreter: /bin/python3.8
