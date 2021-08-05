@@ -19,7 +19,7 @@ python3 get-pip.py --user
 
 sudo yum update -y
 sudo yum -y install git
-git clone https://github.com/alejandraRamos/lahaus-project/tree/dev
+git clone https://github.com/alejandraRamos/lahaus-project.git
 
 pip3 install flask==1.1.2
 pip3 install flask_sqlalchemy==2.4.1
