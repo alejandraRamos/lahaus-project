@@ -1,55 +1,55 @@
 variable "aws_region" {
-	type 			= string
-    default 		= "us-east-2"
-	description = "AWS region "
+  type        = string
+  default     = "us-east-2"
+  description = "AWS region "
 }
 variable "devops_vpc" {
-	default = "vpc-0d8dc549b8e3cd79b"
+  default = "vpc-0d8dc549b8e3cd79b"
 }
 
 variable "public_subnet_id_2a" {
-  type = string
+  type    = string
   default = "subnet-0837dbcd3e40fa9fe"
 }
 variable "private_subnet_id_2a" {
-  type = string
+  type    = string
   default = "subnet-0a8cc0ae87778adb3"
 }
 variable "public_subnet_id_2c" {
-  type = string
+  type    = string
   default = "subnet-095384cad2c0751f4"
 }
 variable "private_subnet_id_2c" {
-  type = string
+  type    = string
   default = "subnet-0d5ba879a0efc802a"
 }
 variable "vpc_cidr" {
-    default = "10.0.0.0/16"
+  default = "10.0.0.0/16"
 }
 variable "key_name" {
-	type 				= string
-  default 		= "devops-project"
-	description = "The .pem file name"
+  type        = string
+  default     = "devops-project"
+  description = "The .pem file name"
 }
 variable "project_tag" {
-	type 				= string
-	default 		= "devops-project"
-	description = "This is the TAG"
+  type        = string
+  default     = "devops-project"
+  description = "This is the TAG"
 }
 variable "devops_ami_id" {
-	default = "ami-0443305dabd4be2bc"
+  default = "ami-0443305dabd4be2bc"
 }
 
 variable "az_subnet_2a" {
-	default = "us-east-2a"
+  default = "us-east-2a"
 }
 
 variable "az_subnet_2c" {
-	default = "us-east-2c"
+  default = "us-east-2c"
 }
 
 variable "map_public_ip_subnets" {
-	default = true
+  default = true
 }
 //SG
 variable "sg_instance" {
@@ -58,50 +58,50 @@ variable "sg_instance" {
 }
 
 variable "sg_in_ssh_descrption" {
-	type        = string
+  type        = string
   default     = "Allowed SSH from anywhere"
   description = "This is the description for the inbound rule that allowed SSH to the instance"
 }
 
 variable "sg_in_ssh_port" {
-	type        = number
+  type        = number
   default     = 22
   description = "This is the port for the inbound rule that allowed SSH to the instance"
 }
 
 variable "sg_in_ssh_protocol" {
-	type        = string
+  type        = string
   default     = "tcp"
   description = "This is the protocol for the inbound rule that allowed SSH to the instance"
 }
 
 variable "sg_in_ssh_cidr" {
-  type        = list (string)
-  default     = [ "181.58.18.38/32" ]
+  type        = list(string)
+  default     = ["181.58.18.38/32"]
   description = "This is the list of CIDR"
 }
 
 variable "sg_in_app_descrption" {
-	type        = string
+  type        = string
   default     = "Allow traffic trough port 5000 from anywhere"
   description = "This is the description for the inbound rule that allowed traffic through the port 5000 from the internet to the instance"
 }
 
 variable "sg_in_app_port" {
-	type        = number
+  type        = number
   default     = 5000
   description = "This is the port for the inbound rule that allowed traffic through the port 5000 from the internet to the instance"
 }
 
 variable "sg_in_app_protocol" {
-	type        = string
+  type        = string
   default     = "tcp"
   description = "This is the protocol for the inbound rule that allowed traffic through the port 5000 from the internet to the instance"
 }
 
 variable "sg_in_app_cidr" {
-  type        = list (string)
-  default     = [ "0.0.0.0/0" ]
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
   description = "This is the list of CIDR"
 }
 
@@ -124,8 +124,8 @@ variable "front_sg_out_protocol" {
 }
 
 variable "front_sg_out_cidr" {
-  type        = list (string)
-  default     = [ "0.0.0.0/0" ]
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
   description = "This is list of cird for the outbound rule"
 }
 
@@ -154,8 +154,8 @@ variable "lb_sg_in_traffic_protocol" {
 }
 
 variable "lb_sg_in_traffic_cird" {
-  type        = list (string)
-  default     = [ "0.0.0.0/0" ]
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
   description = "This is the list of CIDR"
 }
 
@@ -179,7 +179,7 @@ variable "lb_sg_out_protocol" {
 
 variable "lb_sg_out_cird" {
   type        = list (string)
-  default     = [ "0.0.0.0/0" ]
+  default     = ["0.0.0.0/0"]
   description = "This is list of cird for the outbound rule"
 }
 //Launch Template
