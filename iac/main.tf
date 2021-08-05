@@ -32,6 +32,14 @@ resource "aws_launch_template" "launch-template-db" {
   key_name               = var.key_name
   vpc_security_group_ids = [aws_security_group.sg-instance.id]
 
+  tag_specifications {
+    resource_type = "instance"
+
+    tags = {
+      Name = "DB instance"
+    }
+  }
+
   user_data = base64encode(templatefile("../app/scripts/psql.sh", {}))
 }
 resource "aws_autoscaling_group" "tf-devops-asg-db" {
@@ -51,6 +59,14 @@ resource "aws_launch_template" "launch-template-back" {
   instance_type          = var.lt_instance_type
   key_name               = var.key_name
   vpc_security_group_ids = [aws_security_group.sg-instance.id]
+
+  tag_specifications {
+    resource_type = "instance"
+
+    tags = {
+      Name = "back"
+    }
+  }
 
   user_data = base64encode(templatefile("./user_data.sh", { ansible = var.lt_instance_name}))
 
