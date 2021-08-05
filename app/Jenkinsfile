@@ -1,0 +1,39 @@
+node {
+
+  def image
+
+  step([$class: 'WsCleanup'])
+
+  stage('Checkout SCM') {
+    checkout scm
+  }
+
+  stage('Test') {
+
+  }
+
+  stage('Build image') {
+    dir('app') {
+      docker.withRegistry('', 'docker-hub') {
+        image = docker.build('alejandraramos/lahaus')
+      }
+    }
+  }
+
+  stage('Pushing image to registry') {
+    docker.withRegistry('', 'docker-hub') {
+      image.push("$BUILD_NUMBER")
+    }
+  }
+
+  stage('Removing unnecessary images') {
+    sh 'docker image prune -a -f --filter "label!=alejandraramos/lahaus"'
+  }
+
+  stage('Trigger CD') {
+    build job: 'cd-devops', parameters: [
+      string(name: 'TAG', value: "$BUILD_NUMBER")
+    ]
+  }
+
+}

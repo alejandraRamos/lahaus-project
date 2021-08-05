@@ -28,6 +28,6 @@ pip3 install flask_migrate==2.5.2
 pip3 install psycopg2-binary
 
 
-python3 ./app/manage.py db init
-python3 ./app/manage.py db migrate
-python3 ./app/manage.py db upgrade
+python3 ./lahaus-project/app/manage.py db init
+python3 ./lahaus-project/app/manage.py db migrate
+python3 ./lahaus-project/app/manage.py db upgrade

@@ -1,0 +1,2 @@
+[tf-instance-devops]
+tf-instance-devops     ansible_connection=local
