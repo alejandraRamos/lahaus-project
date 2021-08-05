@@ -27,7 +27,6 @@ data "aws_subnet" "devops-subnet-private-2c"{
 //creo que falta el sg
 resource "aws_launch_template" "launch-template-db" {
   image_id               = var.devops_ami_id
-  name                   = var.lt_name_db
   instance_type          = var.lt_instance_type
   key_name               = var.key_name
   vpc_security_group_ids = [aws_security_group.sg-instance.id]
@@ -55,7 +54,6 @@ resource "aws_autoscaling_group" "tf-devops-asg-db" {
 }
 resource "aws_launch_template" "launch-template-back" {
   image_id               = var.devops_ami_id
-  name                   = var.lt_name_back
   instance_type          = var.lt_instance_type
   key_name               = var.key_name
   vpc_security_group_ids = [aws_security_group.sg-instance.id]
