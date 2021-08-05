@@ -44,5 +44,5 @@
           - "5000:5000"
         env:
           APP_SETTINGS: 'config.DevelopmentConfig'
-          DATABASE_URL: 'postgresql:///lahaus'
+          DATABASE_URL: '{{ database_url }}'
       register: my_service_status
