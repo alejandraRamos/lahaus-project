@@ -14,6 +14,7 @@ node {
         ini.yml \
         --private-key="${env.pemPath}" \
         -u ec2-user -vvv \
+        -e awslog_group="${env.awslogGroup}" \
         -e tag=${params.TAG} \
         -e database_url=postgresql://myuser:password@${env.ip_db}/lahaus
       """
