@@ -1,2 +1,2 @@
-[tf-instance-devops]
+[tag_Name_tf-instance-devops]
 tf-instance-devops     ansible_connection=local
