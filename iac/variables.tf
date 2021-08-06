@@ -183,11 +183,6 @@ variable "lb_sg_out_cird" {
   description = "This is list of cird for the outbound rule"
 }
 //Launch Template
-variable "iam_instance_profile" {
-  type        = string
-  default     = "EC2-cloudwatch"
-  description = "The IAM Role with cloudwatch policies attached"
-}
 variable "lt_version" {
   type        = string
   default     = "$Latest"
@@ -332,6 +327,11 @@ variable "tg_hc_unhealthy_threshold" {
 }
 variable "cloudwatch_log_group_name" {
   default = "devops-logs"
+}
+variable "iam_instance" {
+  type        = string
+  default     = "ec2CloudWatchFullAccess"
+  description = "The IAM Role with cloudwatch policies attached"
 }
 
 

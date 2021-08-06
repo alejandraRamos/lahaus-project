@@ -30,6 +30,10 @@ resource "aws_launch_template" "launch-template-back" {
   key_name               = var.key_name
   vpc_security_group_ids = [aws_security_group.sg-instance.id]
 
+  iam_instance_profile {
+    name = var.iam_instance
+  }
+
   tag_specifications {
     resource_type = var.lt_resource_type_instance
 
