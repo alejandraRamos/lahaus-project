@@ -44,6 +44,9 @@
         name: lahaus
         image: alejandraramos/lahaus
         pull: true
+        log_driver: awslogs
+        log_options:
+          awslogs-group: '{{ awslog_group }}'       
         state: started
         published_ports:
           - "5000:5000"
