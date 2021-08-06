@@ -2,7 +2,7 @@ node {
   step([$class: 'WsCleanup'])
 
 
-  stage('Checkout SCM') {
+  stage('Checkout CSM') {
         checkout csm
   }
 
