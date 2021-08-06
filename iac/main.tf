@@ -190,6 +190,7 @@ resource "aws_db_instance" "db_lahaus" {
   vpc_security_group_ids = [aws_security_group.db_instance.id]
 
 }
+
 resource "aws_cloudwatch_log_group" "devops-logs" {
   name = var.cloudwatch_log_group_name
 }
