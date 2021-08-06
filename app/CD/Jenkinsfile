@@ -2,10 +2,8 @@ node {
   step([$class: 'WsCleanup'])
 
 
-  stage('Checkout aditional repo') {
-    dir('ConfigManager') {
-      git branch: 'master', url: "https://github.com/alejandraRamos/lahaus-project.git"
-    }
+  stage('Checkout SCM') {
+        checkout csm
   }
 
   stage('Execute deployment with ansible') {
@@ -15,7 +13,7 @@ node {
         -l tag_Name_tf-instance-devops \
         ini.yml \
         --private-key="${env.pemPath}" \
-        -u ubuntu -vvv \
+        -u ec2-user -vvv \
         -e tag=${params.TAG} \
         -e back_host=localhost
       """
