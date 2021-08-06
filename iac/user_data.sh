@@ -8,4 +8,4 @@ git clone --branch dev https://github.com/alejandraRamos/lahaus-project.git
 
 cd lahaus-project/ConfigManager/
 
-sudo ansible-playbook -i Inventory/hosts -l tag_Name_tf_instance_devops ini.yml -vvv -e database_url="postgresql://myuser:password@${ip_db}/lahaus"
+sudo ansible-playbook -i Inventory/hosts -l tag_Name_tf_instance_devops ini.yml -vvv -e database_url="postgresql://myuser:password@${ip_db}/lahaus" -e awslog_group=${log_group}

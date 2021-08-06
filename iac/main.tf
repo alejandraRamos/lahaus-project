@@ -38,7 +38,7 @@ resource "aws_launch_template" "launch-template-back" {
     }
   }
 
-  user_data = base64encode(templatefile("./user_data.sh", { ansible = var.lt_instance_name, ip_db = aws_db_instance.db_lahaus.address }))
+  user_data = base64encode(templatefile("./user_data.sh", { ansible = var.lt_instance_name, ip_db = aws_db_instance.db_lahaus.address, log_group = aws_cloudwatch_log_group.devops-logs.name }))
 
 }
 resource "aws_autoscaling_group" "tf-devops-asg-back" {
