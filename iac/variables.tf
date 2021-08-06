@@ -330,5 +330,8 @@ variable "tg_hc_unhealthy_threshold" {
   default     = 2
   description = "This is the number of consecutive health checks failures required before considering the target unhealthy"
 }
+variable "cloudwatch_log_group_name" {
+  default = "devops-logs"
+}
 
 
