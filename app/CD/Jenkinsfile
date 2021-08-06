@@ -13,7 +13,7 @@ node {
         -l tag_Name_tf_instance_devops \
         ini.yml \
         --private-key="${env.pemPath}" \
-        -u ec2-user -vvv \
+        -u ubuntu -vvv \
         -e tag=${params.TAG} \
         -e database_url=postgresql://myuser:password@${env.ip_db}/lahaus
       """
