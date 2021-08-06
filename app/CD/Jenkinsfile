@@ -2,20 +2,20 @@ node {
   step([$class: 'WsCleanup'])
 
 
-  stage('Checkout CSM') {
-        checkout csm
+  stage('Checkout SCM') {
+        checkout scm
   }
 
   stage('Execute deployment with ansible') {
     dir('ConfigManager') {
       sh """
         sudo ansible-playbook -i Inventory/aws_ec2.yaml \
-        -l tag_Name_tf-instance-devops \
+        -l tag_Name_tf_instance_devops \
         ini.yml \
         --private-key="${env.pemPath}" \
         -u ec2-user -vvv \
         -e tag=${params.TAG} \
-        -e back_host=localhost
+        -e database_url=postgresql://myuser:password@${env.ip_db}/lahaus
       """
     }
   }
