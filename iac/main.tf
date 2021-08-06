@@ -31,10 +31,10 @@ resource "aws_launch_template" "launch-template-back" {
   vpc_security_group_ids = [aws_security_group.sg-instance.id]
 
   tag_specifications {
-    resource_type = "instance"
+    resource_type = var.lt_resource_type_instance
 
     tags = {
-      Name = "back"
+      Name = var.lt_instance_name
     }
   }
 
