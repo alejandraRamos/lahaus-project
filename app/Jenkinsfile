@@ -27,7 +27,7 @@ node {
   }
 
   stage('Trigger CD') {
-    build job: 'cd-devops', parameters: [
+    build job: 'CDlahaus', parameters: [
       string(name: 'TAG', value: "$BUILD_NUMBER")
     ]
   }
