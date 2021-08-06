@@ -1,6 +1,6 @@
 node {
 
-  def image
+  def lahaus_image
 
   step([$class: 'WsCleanup'])
 
@@ -8,21 +8,17 @@ node {
     checkout scm
   }
 
-  stage('Test') {
-
-  }
-
   stage('Build image') {
     dir('app') {
       docker.withRegistry('', 'docker-hub') {
-        image = docker.build('alejandraramos/lahaus')
+        lahaus_image = docker.build('alejandraramos/lahaus')
       }
     }
   }
 
   stage('Pushing image to registry') {
     docker.withRegistry('', 'docker-hub') {
-      image.push("$BUILD_NUMBER")
+      lahaus_image.push("$BUILD_NUMBER")
     }
   }
 
